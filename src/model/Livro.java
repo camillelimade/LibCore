@@ -1,3 +1,5 @@
+package model;
+
 public class Livro {
     private String titulo;
     private String autor;
@@ -8,6 +10,5 @@ public class Livro {
         this.disponivel = disponivel;
         this.autor = autor;
     }
-    
 
 }
