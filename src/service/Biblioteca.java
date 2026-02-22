@@ -1,5 +1,7 @@
 package service;
 
+import model.Livro;
+
 import java.util.Scanner;
 
 // classe principal da lógica de negócios pois leva a maioria das funções
@@ -23,5 +25,16 @@ public class Biblioteca {
         int opcao = input.nextInt();
         input.nextLine();
         return opcao;
+    }
+
+    public Livro addLivro(int id){
+        System.out.println("Digite o titulo do livro: ");
+        String titulo = input.nextLine();
+        System.out.println("Digite o autor do livro: ");
+        String autor = input.nextLine();
+        Livro novoLivro = new Livro(id, titulo, autor);
+        divisor();
+        System.out.println("Livro " + titulo + " adicionado com sucesso!");
+        return novoLivro;
     }
 }

@@ -13,10 +13,13 @@ public class Main {
         ArrayList<Livro> livros = new ArrayList<Livro>();
         Biblioteca  biblioteca = new Biblioteca();
         boolean continuar = false;
+        int idLivro = 1;
         do{
             int opcao = biblioteca.menu();
             switch (opcao) {
                 case 1:
+                    livros.add(biblioteca.addLivro(idLivro));
+                    idLivro++; // id auto incrementado
                     break;
                 case 6:
                     continuar = true;
