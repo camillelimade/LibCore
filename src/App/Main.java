@@ -21,6 +21,9 @@ public class Main {
                     livros.add(biblioteca.addLivro(idLivro));
                     idLivro++; // id auto incrementado
                     break;
+                case 2:
+                    biblioteca.listLivros(livros);
+                    break;
                 case 6:
                     continuar = true;
                     System.out.println("Encerrando..");

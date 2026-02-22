@@ -2,6 +2,7 @@ package service;
 
 import model.Livro;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // classe principal da lógica de negócios pois leva a maioria das funções
@@ -28,6 +29,7 @@ public class Biblioteca {
     }
 
     public Livro addLivro(int id){
+        System.out.println("LibCore - Cadastro de Livros");
         System.out.println("Digite o titulo do livro: ");
         String titulo = input.nextLine();
         System.out.println("Digite o autor do livro: ");
@@ -36,5 +38,23 @@ public class Biblioteca {
         divisor();
         System.out.println("Livro " + titulo + " adicionado com sucesso!");
         return novoLivro;
+    }
+    public void listLivros(ArrayList<Livro> livros){
+        if (livros.isEmpty()){
+            divisor();
+            System.out.println("Nenhum livro encontrado!");
+            System.out.println();
+            return;
+        }
+
+        divisor();
+        System.out.println("LibCore - Lista de Livros");
+        divisor();
+        for (Livro livro : livros){
+            System.out.println(livro.toString());
+        }
+
+        System.out.println();
+
     }
 }
