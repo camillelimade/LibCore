@@ -45,11 +45,12 @@ public class Livro {
         this.disponivel = disponivel;
     }
 
+
     @Override
     public String toString() {
-        return "ID: " + id + " | " +
-                "Titulo: " + titulo + " | " +
-                "Autor: " + autor + " | " +
-                "Disponivel: " + disponivel + " | ";
+        return "ID: " + id  +
+                "\nTitulo: " + titulo  +
+                "\nAutor: " + autor  +
+                "\nDisponivel: " + disponivel;
     }
 }

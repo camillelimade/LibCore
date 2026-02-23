@@ -1,4 +1,4 @@
-package App;
+package app;
 
 import model.Livro;
 import service.Biblioteca;
@@ -23,6 +23,12 @@ public class Main {
                     break;
                 case 2:
                     biblioteca.listLivros(livros);
+                    break;
+                case 3:
+                    System.out.println("Digite o ID do livro que deseja: ");
+                    int idEmp = input.nextInt();
+                    input.nextLine();
+                    biblioteca.realizarEmprestimo(livros, idEmp);
                     break;
                 case 6:
                     continuar = true;

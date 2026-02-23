@@ -29,7 +29,9 @@ public class Biblioteca {
     }
 
     public Livro addLivro(int id){
-        System.out.println("LibCore - Cadastro de Livros");
+        divisor();
+        System.out.println("LibCore — Seu cadastro de Livros");
+        divisor();
         System.out.println("Digite o titulo do livro: ");
         String titulo = input.nextLine();
         System.out.println("Digite o autor do livro: ");
@@ -48,13 +50,32 @@ public class Biblioteca {
         }
 
         divisor();
-        System.out.println("LibCore - Lista de Livros");
+        System.out.println("LibCore — Sua lista de Livros");
         divisor();
         for (Livro livro : livros){
-            System.out.println(livro.toString());
+            if (livro.isDisponivel() ==  true){
+                System.out.println(livro.toString());
+                divisor();
+            }
         }
-
-        System.out.println();
-
+        System.out.println("Carregando.. 🕑");
+    }
+    public void realizarEmprestimo(ArrayList<Livro> livros, int id){
+        for (Livro livro: livros){
+            if (livro.getId() == id){
+                if (livro.isDisponivel() == true){
+                    divisor();
+                    System.out.println("O livro " + livro.getTitulo() +  " de "  + livro.getAutor() +" foi emprestado com sucesso! ");
+                    livro.setDisponivel(false);
+                }else {
+                    divisor();
+                    System.out.println("O livro " + livro.getTitulo() + " já foi emprestado! ");
+                    divisor();
+                }
+                return;
+            }
+        }
+        divisor();
+        System.out.println("Livro com ID " + id + " não encontrado!");
     }
 }
