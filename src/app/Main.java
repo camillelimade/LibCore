@@ -30,6 +30,12 @@ public class Main {
                     input.nextLine();
                     biblioteca.realizarEmprestimo(livros, idEmp);
                     break;
+                case 4:
+                    System.out.println("Digite a ID do livro que deseja devolver: ");
+                    int idDevolucao = input.nextInt();
+                    input.nextLine();
+                    biblioteca.devolverLivro(livros, idDevolucao);
+                    break;
                 case 6:
                     continuar = true;
                     System.out.println("Encerrando..");

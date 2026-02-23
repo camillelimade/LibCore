@@ -20,11 +20,25 @@ public class Biblioteca {
         System.out.println("4. Devolução de livros");
         System.out.println("5. Excluir livro");
         System.out.println("6. Fechar o programa");
+
+
         divisor();
-        System.out.println("Digite a opção desejada: ");
-        divisor();
-        int opcao = input.nextInt();
-        input.nextLine();
+        int opcao;
+        while (true) {
+
+            System.out.print("Digite a opção desejada: ");
+
+            if (input.hasNextInt()) {
+                opcao = input.nextInt();
+                input.nextLine();
+                break;
+            } else {
+
+                System.out.println("Digite uma entrada válida! ");
+                input.nextLine();
+            }
+        }
+
         return opcao;
     }
 
@@ -78,4 +92,23 @@ public class Biblioteca {
         divisor();
         System.out.println("Livro com ID " + id + " não encontrado!");
     }
+    public void devolverLivro(ArrayList<Livro> livros, int id){
+        for (Livro livro: livros){
+            if (livro.getId() == id){
+                if (!livro.isDisponivel()){
+                    livro.setDisponivel(true);
+                    divisor();
+                    System.out.println("Livro " + livro.getTitulo() + " de " + livro.getAutor() +   " foi devolvido com sucesso!");
+                    divisor();
+                }else {
+                    divisor();
+                    System.out.println("O livro não está emprestado!");
+                    divisor();
+                }
+                return;
+            }
+        }
+        System.out.println("Livro com ID " + id + " não encontrado!");
+    }
+
 }
