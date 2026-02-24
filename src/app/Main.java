@@ -36,6 +36,12 @@ public class Main {
                     input.nextLine();
                     biblioteca.devolverLivro(livros, idDevolucao);
                     break;
+                case 5:
+                    System.out.println("Digite o ID do livro que deseja excluir: ");
+                    int idEx = input.nextInt();
+                    input.nextLine();
+                    biblioteca.excluirLivro(livros, idEx);
+                    break;
                 case 6:
                     continuar = true;
                     System.out.println("Encerrando..");
