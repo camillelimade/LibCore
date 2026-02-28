@@ -5,7 +5,7 @@ public class Aluno extends Usuario {
         super(nome, email);
     }
     public String getTipo(){
-        return "Aluno: " + getNome();
+        return getNome() + " (Aluno)";
     }
 
 }

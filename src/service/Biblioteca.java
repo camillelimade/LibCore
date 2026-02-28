@@ -135,20 +135,23 @@ public class Biblioteca {
     public void realizarEmprestimo(ArrayList<Livro> livros, int id, Usuario usuario) {
         for (Livro livro : livros) {
             if (livro.getId() == id) {
-                if (livro.isDisponivel() == true) {
-                    divisor();
-                    System.out.println("O livro " + livro.getTitulo() + " de " + livro.getAutor() + " foi emprestado com sucesso! ");
+                if (livro.isDisponivel()) {
                     livro.setDisponivel(false);
+                    livro.setEmprestadoPara(usuario);
+                    divisor();
+                    System.out.println("O livro " + livro.getTitulo() + " de " + livro.getAutor() + " foi emprestado para " + usuario.getTipo());
+                    livro.setDisponivel(false);
+                    divisor();
                 } else {
+                    Usuario quemPegou = livro.getEmprestadoPara();
                     divisor();
                     throw new LivroIndisponivelException(
-                            "O livro " + livro.getTitulo() + " já foi emprestado! "
+                            "O livro " + livro.getTitulo() + " já está emprestado para: " + "(" + quemPegou.getTipo() + ")"
                     );
                 }
                 return;
             }
         }
-        divisor();
         System.out.println("Livro com ID " + id + " não encontrado!");
     }
 
@@ -156,13 +159,15 @@ public class Biblioteca {
         for (Livro livro : livros) {
             if (livro.getId() == id) {
                 if (!livro.isDisponivel()) {
+                    Usuario quemPegou = livro.getEmprestadoPara();
                     livro.setDisponivel(true);
-                    divisor();
-                    System.out.println("Livro " + livro.getTitulo() + " de " + livro.getAutor() + " foi devolvido com sucesso!");
-                    divisor();
+
+                    livro.setEmprestadoPara(null); // limpa o usuario
+
+                    System.out.println("Livro "+ livro.getTitulo() +" devolvido por " + quemPegou.getNome() + " com sucesso!");
                 } else {
                     divisor();
-                    System.out.println("O livro não está emprestado!");
+                    System.out.println("O livro "+ livro.getTitulo() +" não está emprestado!");
                     divisor();
                 }
                 return;
