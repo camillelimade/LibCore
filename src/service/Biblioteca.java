@@ -1,6 +1,12 @@
 package service;
 
+import exceptions.EmailInvalidoException;
+import exceptions.LivroIndisponivelException;
+import exceptions.ContatoUserInvalidoException;
+import model.Aluno;
 import model.Livro;
+import model.Professor;
+import model.Usuario;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,6 +18,54 @@ public class Biblioteca {
     }
 
     Scanner input = new Scanner(System.in);
+
+    private boolean emailValido(String email) {
+        if (email == null) return false;
+
+        return email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
+    }
+
+    public Usuario cadastro() {
+        // ux, mensagem de situação do usuario e boas vindas do aplicativo
+        divisor();
+        System.out.println("Bem vindo(a) ao Cadastro do LibCore! A sua biblioteca virtual");
+        divisor();
+
+        // 0. criação da caixa de leitura dos dados para realizar o cadastro
+        Scanner cadUser = new Scanner(System.in);
+
+        // 1. recebe nomeUser
+        System.out.println("Digite seu nome: ");
+        String nomeUser = cadUser.nextLine();
+
+        // 2. via que verifica se nomeUser é válido
+        if (nomeUser.isBlank()) {
+            throw new ContatoUserInvalidoException("Nome inválido! Tente novamente. ");
+        }
+        // 1. recebe emailUser
+        System.out.println("Digite seu e-mail: ");
+        String emailUser = cadUser.nextLine();
+        // 2. exceção de email inválido ou vazio
+        if (emailUser.isBlank() || !emailValido(emailUser)) {
+            throw new EmailInvalidoException("E-mail inválido! Tente novamente.");
+        }
+        // 1. recebe tipo de usuario (Aluno ou Professor)
+        divisor();
+        System.out.println("Tipos de usuário: \nAluno: 0 \nProfessor: 1");
+        divisor();
+        System.out.println("Indique qual o seu usuário: ");
+        int tipoUser = cadUser.nextInt();
+        cadUser.nextLine(); // limpa buffer
+
+        if (tipoUser == 0) {
+            return new Aluno(nomeUser, emailUser);
+        } else if (tipoUser == 1) {
+            return new Professor(nomeUser, emailUser);
+        } else {
+            throw new IllegalArgumentException("Tipo inválido!");
+        }
+
+    }
 
     public int menu() {
         divisor();
@@ -78,7 +132,7 @@ public class Biblioteca {
         System.out.println("Carregando.. ");
     }
 
-    public void realizarEmprestimo(ArrayList<Livro> livros, int id) {
+    public void realizarEmprestimo(ArrayList<Livro> livros, int id, Usuario usuario) {
         for (Livro livro : livros) {
             if (livro.getId() == id) {
                 if (livro.isDisponivel() == true) {
@@ -87,8 +141,9 @@ public class Biblioteca {
                     livro.setDisponivel(false);
                 } else {
                     divisor();
-                    System.out.println("O livro " + livro.getTitulo() + " já foi emprestado! ");
-                    divisor();
+                    throw new LivroIndisponivelException(
+                            "O livro " + livro.getTitulo() + " já foi emprestado! "
+                    );
                 }
                 return;
             }
@@ -115,12 +170,13 @@ public class Biblioteca {
         }
         System.out.println("Livro com ID " + id + " não encontrado!");
     }
-/*
-*  if (contatos.get(i).getNome().equalsIgnoreCase(nomeExcluir)) {
-                contatos.remove(i);
-                return;
-            }
-* */
+
+    /*
+    *  if (contatos.get(i).getNome().equalsIgnoreCase(nomeExcluir)) {
+                    contatos.remove(i);
+                    return;
+                }
+    * */
     public void excluirLivro(ArrayList<Livro> livros, int id) {
         for (int i = 0; i < livros.size(); i++) {
             if (livros.get(i).getId() == id) {
