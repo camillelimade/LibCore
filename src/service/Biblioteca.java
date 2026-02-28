@@ -136,7 +136,6 @@ public class Biblioteca {
         for (Livro livro : livros) {
             if (livro.getId() == id) {
                 if (livro.isDisponivel()) {
-                    livro.setDisponivel(false);
                     livro.setEmprestadoPara(usuario);
                     divisor();
                     System.out.println("O livro " + livro.getTitulo() + " de " + livro.getAutor() + " foi emprestado para " + usuario.getTipo());
@@ -146,7 +145,7 @@ public class Biblioteca {
                     Usuario quemPegou = livro.getEmprestadoPara();
                     divisor();
                     throw new LivroIndisponivelException(
-                            "O livro " + livro.getTitulo() + " já está emprestado para: " + "(" + quemPegou.getTipo() + ")"
+                            "O livro " + livro.getTitulo() + " já está emprestado para: " + quemPegou.getTipo() + " com sucesso!"
                     );
                 }
                 return;
@@ -164,11 +163,10 @@ public class Biblioteca {
 
                     livro.setEmprestadoPara(null); // limpa o usuario
 
-                    System.out.println("Livro "+ livro.getTitulo() +" devolvido por " + quemPegou.getNome() + " com sucesso!");
+                    System.out.println("Livro "+ livro.getTitulo() +" devolvido por " + quemPegou.getTipo() + " com sucesso!");
                 } else {
                     divisor();
                     System.out.println("O livro "+ livro.getTitulo() +" não está emprestado!");
-                    divisor();
                 }
                 return;
             }

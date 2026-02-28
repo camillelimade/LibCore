@@ -5,6 +5,6 @@ public class Professor extends Usuario{
         super(nome, email);
     }
     public String getTipo(){
-        return "Professor: " + getNome();
+        return getNome() + " (Professor)";
     }
 }
